@@ -1,5 +1,6 @@
 package com.kuluruvineeth.canvaspractice
 
+import android.graphics.Paint
 import android.os.Bundle
 import android.os.CountDownTimer
 import androidx.activity.ComponentActivity
@@ -19,6 +20,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,11 +37,23 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MainScreen()
+            Canvas(modifier = Modifier.fillMaxSize()){
+                drawContext.canvas.nativeCanvas.apply {
+                    drawText(
+                        "This is my canvas text",
+                        100f,
+                        100f,
+                        Paint().apply {
+                            color = android.graphics.Color.RED
+                            textSize = 100f
+                        }
+                    )
+                }
+            }
         }
     }
 }
-
+/*
 @Composable
 fun MainScreen(){
     var points by remember{
@@ -165,6 +179,7 @@ private fun randomOffset(radius: Float, width: Int, height: Int): Offset{
         y = Random.nextInt(radius.roundToInt(), height - radius.roundToInt()).toFloat()
     )
 }
+ */
 
 /*
 @Composable
